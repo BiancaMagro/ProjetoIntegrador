@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-100 col-md-100 col-lg-10 mx-auto">
+      <div class="card border-0 shadow rounded-9 my-9">
+        <div class="card-body p-10 p-sm-9">
+          <div *ngIf="tela">
+            <h2 class="card-title text-center mb-5 fw-light fs-5">Controle de usuarios</h2>
+            <h3>Pedido: {{pedido.descricao}}</h3>
+            <button class="btn btn-success" (click)="terminar()">Pronto</button>
+          </div>
+          <div *ngIf="!tela">
+            <table class="table table-striped">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">MESA</th>
+                <th scope="col">DESCRIÇÃO</th>
+                <th scope="col">OPÇÃO</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let p of pedidos;">
+                <th>{{p.mesa}}</th>
+                <th>{{p.descricao}}</th>
+                <th>
+                  <button class="btn btn-warning" (click)="continuar(p.codigo)">FAZER</button>
+                </th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

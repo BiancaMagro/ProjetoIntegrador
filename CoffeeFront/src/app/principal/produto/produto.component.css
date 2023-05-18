@@ -1,0 +1,31 @@
+#container {
+  margin: 0 auto;
+  padding:0px;
+  border: none;
+  width:900px;
+  height:110px;
+  font-size: 12px;
+  background-color:hotpink;
+
+}
+
+#header {
+  position: relative;
+  margin: 0 auto;
+  border: none;
+  padding: 15px;
+  width:900px;
+  height:110px;
+  font-size: 36px;
+  text-align: center;
+  background: url('../../../assets/img/fundotopo.jpg') no-repeat;
+  background-color:#f0ddee;
+}
+
+a{
+  font-size: 20px;
+  background-color: deeppink;
+}
+a:link, a:visited{
+  color: white;
+}
