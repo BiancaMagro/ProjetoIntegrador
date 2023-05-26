@@ -49,6 +49,10 @@ export class AdminComponent {
     this.service.pesquisar(login).subscribe((dado: Usuario)=>{
       this.usuario = dado;
       this.login = dado.login;
+      setTimeout(() => {
+        var option = document.getElementById('option'+this.usuario.funcao?.codigo)
+        option?.setAttribute('selected', 'selected');
+      }, 200);
       this.opcao = 'edit'
     })
   }

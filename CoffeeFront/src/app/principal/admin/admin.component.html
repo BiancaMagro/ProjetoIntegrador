@@ -39,7 +39,7 @@
               <div class="form-group">
                 <label for="permissao">FUNÇÃO</label>
                 <select [(ngModel)]="usuario.funcao" class="form-control" name="permissao" id="permissao">
-                  <option *ngFor="let f of funcoes" [ngValue]="f">{{f.funcao}}</option>
+                  <option *ngFor="let f of funcoes" id="option{{f.codigo}}" [ngValue]="f">{{f.funcao}}</option>
                 </select>
               </div>
               <br>
