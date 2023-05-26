@@ -24,6 +24,8 @@ public class UsuarioDAO {
 
             while (this.resultSet.next()){
                 Usuario usuario = new Usuario();
+                usuario.setNome(this.resultSet.getString("nome"));
+                usuario.setCpf(this.resultSet.getString("cpf"));
                 usuario.setLogin(this.resultSet.getString("login"));
                 usuario.setSenha(this.resultSet.getString("senha"));
                 usuario.setFuncao(new FuncaoDAO().getFuncao(this.resultSet.getInt("funcao")));
@@ -37,11 +39,13 @@ public class UsuarioDAO {
 
     public void setUser(Usuario usuario) {
         try (Connection connection = new ConectaDB().getConexao()) {
-            this.sql = "INSERT INTO usuarios (login, senha, funcao) VALUES (?, ?, ?)";
+            this.sql = "INSERT INTO usuarios (nome, cpf, login, senha, funcao) VALUES (?, ?, ?, ?, ?)";
             this.preparedStatement = connection.prepareStatement(sql);
-            this.preparedStatement.setString(1, usuario.getLogin());
-            this.preparedStatement.setString(2, usuario.getSenha());
-            this.preparedStatement.setInt(3, usuario.getFuncao().getCodigo());
+            this.preparedStatement.setString(1, usuario.getNome());
+            this.preparedStatement.setString(2, usuario.getCpf());
+            this.preparedStatement.setString(3, usuario.getLogin());
+            this.preparedStatement.setString(4, usuario.getSenha());
+            this.preparedStatement.setInt(5, usuario.getFuncao().getCodigo());
             this.preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,6 +81,8 @@ public class UsuarioDAO {
 
             while (this.resultSet.next()){
                 Usuario usuario = new Usuario();
+                usuario.setNome(this.resultSet.getString("nome"));
+                usuario.setCpf(this.resultSet.getString("cpf"));
                 usuario.setLogin(this.resultSet.getString("login"));
                 usuario.setSenha(this.resultSet.getString("senha"));
                 usuario.setFuncao(new FuncaoDAO().getFuncao(this.resultSet.getInt("funcao")));
@@ -91,12 +97,14 @@ public class UsuarioDAO {
     public void editar(Usuario usuario, String login) {
 
         try (Connection connection = new ConectaDB().getConexao()) {
-            this.sql = "update usuarios set login = ?, senha = ?, funcao = ?  where login = ?";
+            this.sql = "update usuarios set nome = ?, cpf = ?, login = ?, senha = ?, funcao = ?  where login = ?";
             this.preparedStatement = connection.prepareStatement(this.sql);
-            this.preparedStatement.setString(1, usuario.getLogin());
-            this.preparedStatement.setString(2, usuario.getSenha());
-            this.preparedStatement.setInt(3, usuario.getFuncao().getCodigo());
-            this.preparedStatement.setString(4, login);
+            this.preparedStatement.setString(1, usuario.getNome());
+            this.preparedStatement.setString(2, usuario.getCpf());
+            this.preparedStatement.setString(3, usuario.getLogin());
+            this.preparedStatement.setString(4, usuario.getSenha());
+            this.preparedStatement.setInt(5, usuario.getFuncao().getCodigo());
+            this.preparedStatement.setString(6, login);
             this.preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

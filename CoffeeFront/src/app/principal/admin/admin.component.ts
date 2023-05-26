@@ -77,4 +77,7 @@ export class AdminComponent {
   produtos(){
     this.rota.navigate(['inicio/produto'])
   }
+  canc(){
+    this.usuario = new Usuario();
+  }
 }

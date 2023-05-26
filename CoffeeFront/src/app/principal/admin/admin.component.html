@@ -11,8 +11,19 @@
             <h2 class="card-title text-center mb-5 fw-light fs-5">Controle de funcionários</h2>
             <form>
               <div class="form-group">
-                  <label for="telefone">LOGIN</label>
-                  <input [(ngModel)]="usuario.login" name="telefone" type="text" class="form-control" id="telefone" placeholder="Informe o Login do funcionario">
+                <label for="nome">NOME</label>
+                <input [(ngModel)]="usuario.nome" type="text" name="nome" class="form-control" id="nome" placeholder="Informe o nome do funcionario">
+              </div>
+
+              <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input [(ngModel)]="usuario.cpf" type="text" name="cpf" class="form-control" id="cpf" placeholder="Informe o cpf do funcionario">
+              </div>
+
+              <div class="form-group">
+                  <label for="email">LOGIN</label>
+                  <input [(ngModel)]="usuario.login" name="email" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Informe o email do funcionario">
+                  <small id="emailHelp" class="form-text text-muted">Email é usado par efetuar o login</small>
               </div>
 
               <div class="form-group">
@@ -33,8 +44,13 @@
               </div>
               <br>
               <div [ngSwitch]="opcao">
-                <button *ngSwitchCase="'cad'" type="submit" (click)="criar()" class="btn btn-lg btn-primary btn-block" >CADASTRAR</button>
-                <button *ngSwitchCase="'edit'" type="submit" (click)="update()" class="btn btn-lg btn-primary btn-block" >SALVAR</button>
+                <div *ngSwitchCase="'cad'" style="display: flex; justify-content: center;">
+                  <button type="submit" (click)="criar()" class="btn btn-lg btn-primary" >CADASTRAR</button>
+                </div>
+                <div *ngSwitchCase="'edit'" style="display: flex;justify-content: space-around;">
+                  <button type="submit" (click)="update()" class="btn btn-lg btn-primary">SALVAR</button>
+                  <button type="submit" (click)="canc()" class="btn btn-lg btn-secondary">CANCELAR</button>
+                </div>
               </div>
             </form>
             <br>

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
+    private String nome;
+    private String cpf;
     private String login;
     private String senha;
     private String token;
