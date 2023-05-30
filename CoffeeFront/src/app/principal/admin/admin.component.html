@@ -21,7 +21,7 @@
               </div>
 
               <div class="form-group">
-                  <label for="email">LOGIN</label>
+                  <label for="email">EMAIL</label>
                   <input [(ngModel)]="usuario.login" name="email" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Informe o email do funcionario">
                   <small id="emailHelp" class="form-text text-muted">Email é usado par efetuar o login</small>
               </div>
@@ -58,18 +58,24 @@
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">LOGIN</th>
+                  <th scope="col">NOME</th>
+                  <th scope="col">EMAIL</th>
+                  <th scope="col">CPF</th>
                   <th scope="col">FUNÇÃO</th>
                   <th scope="col">OPÇÃO</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let u of usuarios;">
+                  <th>{{u.nome}}</th>
                   <th>{{u.login}}</th>
+                  <th>{{u.cpf}}</th>
                   <th>{{u.funcao?.funcao}}</th>
                   <th>
+                    <div style="display: flex; justify-content: space-around;">
                     <button class="btn btn-warning" (click)="editar(u.login)">EDITAR</button>
                     <button class="btn btn-danger" (click)="deletar(u.login)">DELETAR</button>
+                    </div>
                   </th>
                 </tr>
               </tbody>

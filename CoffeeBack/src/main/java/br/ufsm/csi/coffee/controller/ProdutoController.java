@@ -29,7 +29,7 @@ public class ProdutoController {
         return new ProdutoDAO().getAllProdutos();
     }
     @GetMapping("/byId/{id}")
-    public Produto getProduto(int id){
+    public Produto getProduto(@PathVariable int id){
         return new ProdutoDAO().getById(id);
     }
     @PostMapping

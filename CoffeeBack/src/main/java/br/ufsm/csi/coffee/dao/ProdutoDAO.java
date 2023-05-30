@@ -25,8 +25,9 @@ public class ProdutoDAO {
                 Produto produto = new Produto();
                 produto.setId(this.resultSet.getInt("codigo"));
                 produto.setNome(this.resultSet.getString("nome"));
-                produto.setDescricao(this.resultSet.getString("descricao"));
                 produto.setPreco(this.resultSet.getDouble("preco"));
+                produto.setIndcozinha(this.resultSet.getBoolean("ind_cozinha"));
+                produto.setAtivo(this.resultSet.getBoolean("ativo"));
                 produtos.add(produto);
             }
         } catch (SQLException e) {
@@ -47,8 +48,9 @@ public class ProdutoDAO {
             while (this.resultSet.next()) {
                 produto.setId(this.resultSet.getInt("codigo"));
                 produto.setNome(this.resultSet.getString("nome"));
-                produto.setDescricao(this.resultSet.getString("descricao"));
                 produto.setPreco(this.resultSet.getDouble("preco"));
+                produto.setIndcozinha(this.resultSet.getBoolean("ind_cozinha"));
+                produto.setAtivo(this.resultSet.getBoolean("ativo"));
             }
         }catch (SQLException e) {
             e.printStackTrace();
@@ -68,8 +70,9 @@ public class ProdutoDAO {
                 Produto produto = new Produto();
                 produto.setId(this.resultSet.getInt("codigo"));
                 produto.setNome(this.resultSet.getString("nome"));
-                produto.setDescricao(this.resultSet.getString("descricao"));
+                produto.setIndcozinha(this.resultSet.getBoolean("ind_cozinha"));
                 produto.setPreco(this.resultSet.getDouble("preco"));
+                produto.setAtivo(this.resultSet.getBoolean("ativo"));
                 produtos.add(produto);
             }
         } catch (SQLException e) {
@@ -80,13 +83,12 @@ public class ProdutoDAO {
 
     public void addProduto(Produto produto){
         try(Connection connection = new ConectaDB().getConexao()){
-            this.sql = "insert into produtos (nome, descricao, preco, ativo) values (?, ?, ?, ?)";
+            this.sql = "insert into produtos (nome, preco, ind_cozinha) values (?, ?, ?)";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.preparedStatement.setString(1, produto.getNome());
-            this.preparedStatement.setString(2, produto.getDescricao());
-            this.preparedStatement.setDouble(3, produto.getPreco());
-            this.preparedStatement.setBoolean(4, produto.isAtivo());
+            this.preparedStatement.setDouble(2, produto.getPreco());
+            this.preparedStatement.setBoolean(3, produto.isIndcozinha());
             this.preparedStatement.execute();
         }catch (SQLException e) {
             e.printStackTrace();
@@ -95,11 +97,11 @@ public class ProdutoDAO {
 
     public void editaProduto(Produto produto, int id){
         try(Connection connection = new ConectaDB().getConexao()){
-            this.sql = "update produtos set nome = ?, descricao = ?, preco = ? where codigo = ?";
+            this.sql = "update produtos set nome = ?, ind_cozinha = ?, preco = ? where codigo = ?";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.preparedStatement.setString(1, produto.getNome());
-            this.preparedStatement.setString(2, produto.getDescricao());
+            this.preparedStatement.setBoolean(2, produto.isIndcozinha());
             this.preparedStatement.setDouble(3, produto.getPreco());
             this.preparedStatement.setInt(4, id);
             this.preparedStatement.execute();

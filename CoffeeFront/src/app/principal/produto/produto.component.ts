@@ -19,6 +19,7 @@ export class ProdutoComponent {
   listar(){
     this.service.listar().subscribe((resposta: Produto[]) => {
       this.produtos = resposta
+      console.log(this.produtos);
     });
   }
   add(){

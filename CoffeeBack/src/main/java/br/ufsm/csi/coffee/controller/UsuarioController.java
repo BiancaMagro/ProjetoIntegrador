@@ -1,8 +1,6 @@
 package br.ufsm.csi.coffee.controller;
 
-import br.ufsm.csi.coffee.dao.PedidoDAO;
 import br.ufsm.csi.coffee.dao.UsuarioDAO;
-import br.ufsm.csi.coffee.model.Pedido;
 import br.ufsm.csi.coffee.model.Usuario;
 import org.springframework.web.bind.annotation.*;
 

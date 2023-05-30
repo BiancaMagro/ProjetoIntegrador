@@ -1,6 +1,5 @@
 package br.ufsm.csi.coffee.dao;
 
-import br.ufsm.csi.coffee.model.Funcao;
 import br.ufsm.csi.coffee.model.Status;
 
 import java.sql.Connection;
