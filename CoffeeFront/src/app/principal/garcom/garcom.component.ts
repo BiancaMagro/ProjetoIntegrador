@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Pedido } from '../pedido';
 import { Status } from '../status';
 import { PrincipalService } from './garcom.service';
+import { Comanda } from '../comanda/comanda';
 
 @Component({
   selector: 'app-garcom',
@@ -16,8 +17,11 @@ export class GarcomComponent {
   pedidos: Pedido[] = [];
   status: Status = new Status();
   statuses: Status[] = []
+  comanda: Comanda = new Comanda();
+  comandas: Comanda[] = [];
   opcao = 'cad';
   id = 0;
+  tela = 'comandas'
 
   listar(){
     this.service.listar().subscribe((dados: Pedido[])=>{
@@ -27,7 +31,15 @@ export class GarcomComponent {
       })
     })
   }
+  criarComanda(){
+    this.comanda.data_criada = new Date().toISOString().split('T')[0];
+    this.service.criaComanda(this.comanda).subscribe(()=>{
+      this.comanda = new Comanda();
+      this.listar();
+    })
+  }
   criar(){
+    this.pedido.data_criada = new Date().toISOString().split('T')[0];
     this.pedido.status = new Status(1);
     this.service.criar(this.pedido).subscribe(()=>{
       this.pedido = new Pedido();
@@ -38,6 +50,7 @@ export class GarcomComponent {
     this.service.pesquisar(id).subscribe((dado: Pedido)=>{
       this.pedido = dado;
       this.opcao = 'edit';
+      if(dado.codigo)
       this.id = dado.codigo
     })
   }
@@ -59,6 +72,7 @@ export class GarcomComponent {
   entregar(p: number){
     this.service.pesquisar(p).subscribe((dado: Pedido)=>{
       dado.status = new Status(3);//muda o dois para o 3, 3 é entregue
+      if(dado.codigo)
       this.service.editar(dado, dado.codigo).subscribe(()=>{
         this.listar();
       })

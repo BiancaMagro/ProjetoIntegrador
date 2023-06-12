@@ -1,6 +1,7 @@
 package br.ufsm.csi.coffee.controller;
 
 import br.ufsm.csi.coffee.dao.PedidoDAO;
+import br.ufsm.csi.coffee.model.Comanda;
 import br.ufsm.csi.coffee.model.Pedido;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,5 +38,15 @@ public class PedidoController {
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable int id){
         new PedidoDAO().excluir(id);
+    }
+    
+    @GetMapping("/comandas")
+    public ArrayList<Comanda> getComandas(){
+        return new PedidoDAO().getComandas();
+    }
+
+    @PostMapping("/comandas")
+    public void criarComanda(@RequestBody Comanda comanda){
+        new PedidoDAO().addComanda(comanda);
     }
 }

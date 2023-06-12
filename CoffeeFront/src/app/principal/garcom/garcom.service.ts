@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pedido } from '../pedido';
 import { Status } from '../status';
+import { Comanda } from '../comanda/comanda';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrincipalService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {  }
   private readonly url = 'http://localhost:8080/pedidos'
   private readonly status = 'http://localhost:8080/status'
   private readonly options = {headers: new HttpHeaders({'Content-Type': 'application/json'})}
@@ -33,5 +34,11 @@ export class PrincipalService {
   }
   pesqFuncao(id: number): Observable<Status>{
     return this.http.get<Status>(this.status+"/"+id)
+  }
+  getComandas(): Observable<Comanda[]>{
+    return this.http.get<Comanda[]>(this.url+"/comandas", this.options)
+  }
+  criaComanda(comanda: Comanda): Observable<any>{
+    return this.http.post<any>(this.url+"/comandas", JSON.stringify(comanda), this.options)
   }
 }

@@ -1,7 +1,5 @@
 package br.ufsm.csi.coffee.model;
 
-import java.util.ArrayList;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LogPedidos {
-    private Pedido pedido;
-    private ArrayList<Produto> produto;
+public class Comanda {
+    private int codigo;
+    private String data_criada;
+    private String cliente;
+    private int mesa;
+    private boolean ativo;
 }

@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Pedido {
     private int codigo;
-    private int mesa;
-    private String descricao;
-    private String nome;
+    private String dataPedido;
+    private int quantidade;
+    private int comanda;
+    private Produto produto;
     private Status status;
 }

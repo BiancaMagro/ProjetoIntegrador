@@ -26,7 +26,7 @@ export class CozinhaComponent {
   continuar(id: number){
     this.service.pesquisar(id).subscribe((dado: Pedido)=>{
       this.pedido = dado;
-      this.id = dado.codigo;
+      this.id = dado.codigo!;
       this.tela = true;
     })
   }

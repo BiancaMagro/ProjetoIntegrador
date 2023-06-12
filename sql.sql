@@ -36,7 +36,8 @@ insert into produtos values(4, 'Café longo', 7.25, true);
 
 create table comanda(
     codigo serial primary key,
-    data_criada timestamp,
+    mesa int,
+    data_criada VARCHAR(10),
     cliente varchar(20),
     ativo boolean default true
 );
@@ -54,7 +55,7 @@ insert into status values(4, 'Entregue');
 
 create table pedido(
     codigo serial primary key,
-    data_pedido timestamp,
+    data_pedido VARCHAR(10),
     quantidade int,
     produto int,
     comanda int,
