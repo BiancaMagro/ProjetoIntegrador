@@ -41,4 +41,7 @@ export class PrincipalService {
   criaComanda(comanda: Comanda): Observable<any>{
     return this.http.post<any>(this.url+"/comandas", JSON.stringify(comanda), this.options)
   }
+  getPedidosComanda(id: number): Observable<Pedido[]>{
+    return this.http.get<Pedido[]>(this.url+"/comanda/"+id, this.options);
+  }
 }

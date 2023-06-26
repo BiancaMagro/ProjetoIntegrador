@@ -7,12 +7,14 @@ import { GarcomComponent } from './principal/garcom/garcom.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { ProdutoComponent } from './principal/produto/produto.component';
 import {AuthGuardService} from "./security/auth.guard";
+import { ComandaComponent } from './principal/comanda/comanda.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
   {path: 'login', component: LoginComponent},
   {path: 'inicio', component: PrincipalComponent, canActivate: [AuthGuardService], children: [
     {path: 'garcom', component: GarcomComponent, canActivate: [AuthGuardService]},
+    {path: 'comanda', component: ComandaComponent, canActivate: [AuthGuardService]},
     {path: 'cozinha', component: CozinhaComponent, canActivate: [AuthGuardService]},
     {path: 'admin', component: AdminComponent, canActivate: [AuthGuardService]},
     {path: 'produto', component: ProdutoComponent, canActivate: [AuthGuardService]},

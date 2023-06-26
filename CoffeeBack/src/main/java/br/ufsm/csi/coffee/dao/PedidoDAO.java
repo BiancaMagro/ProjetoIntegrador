@@ -114,7 +114,7 @@ public class PedidoDAO {
     public ArrayList<Comanda> getComandas(){
         ArrayList<Comanda> comandas = new ArrayList<>();
         try (Connection connection = new ConectaDB().getConexao()){
-            this.sql = "SELECT * FROM comandas";
+            this.sql = "SELECT * FROM comanda";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();
@@ -137,7 +137,7 @@ public class PedidoDAO {
 
     public void addComanda(Comanda comanda){
         try (Connection connection = new ConectaDB().getConexao()) {
-            this.sql = "INSERT INTO comandas (mesa, cliente, data_criada, ativo) VALUES (?, ?, ?, ?)";
+            this.sql = "INSERT INTO comanda (mesa, cliente, data_criada, ativo) VALUES (?, ?, ?, ?)";
             this.preparedStatement = connection.prepareStatement(sql);
             this.preparedStatement.setInt(1, comanda.getMesa());
             this.preparedStatement.setString(2, comanda.getCliente());

@@ -3,6 +3,7 @@ import { Pedido } from '../pedido';
 import { Status } from '../status';
 import { PrincipalService } from './garcom.service';
 import { Comanda } from '../comanda/comanda';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-garcom',
@@ -10,7 +11,7 @@ import { Comanda } from '../comanda/comanda';
   styleUrls: ['./garcom.component.css']
 })
 export class GarcomComponent {
-  constructor(private service: PrincipalService){
+  constructor(private service: PrincipalService, private rota: Router){
     this.listar()
   }
   pedido: Pedido = new Pedido();
@@ -21,9 +22,21 @@ export class GarcomComponent {
   comandas: Comanda[] = [];
   opcao = 'cad';
   id = 0;
-  tela = 'comandas'
 
   listar(){
+    this.service.getComandas().subscribe((dados: Comanda[])=>{
+      this.comandas = dados;
+      for(let c of this.comandas){
+        c.pedidos = []
+        this.service.getPedidosComanda(c.codigo!).subscribe((dados: Pedido[])=>{
+          if(dados.length > 0){
+            
+          }else{
+
+          }
+        })
+      }
+    })
     this.service.listar().subscribe((dados: Pedido[])=>{
       this.pedidos = dados;
       this.service.listFuncao().subscribe((stats: Status[])=>{
@@ -33,6 +46,7 @@ export class GarcomComponent {
   }
   criarComanda(){
     this.comanda.data_criada = new Date().toISOString().split('T')[0];
+    console.log(this.comanda)
     this.service.criaComanda(this.comanda).subscribe(()=>{
       this.comanda = new Comanda();
       this.listar();
@@ -77,5 +91,9 @@ export class GarcomComponent {
         this.listar();
       })
     })
+  }
+  ver(comanda: Comanda){
+    localStorage.setItem('comanda', JSON.stringify(comanda));
+    this.rota.navigate(['inicio/comanda']);
   }
 }

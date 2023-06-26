@@ -4,7 +4,6 @@ import { PrincipalComponent } from './principal.component';
 import {RouterModule, RouterOutlet} from "@angular/router";
 import {GarcomModule} from "./garcom/garcom.module";
 import { ProdutoModule } from './produto/produto.module';
-import { ComandaModule } from './comanda/comanda.module';
 
 @NgModule({
   declarations: [
@@ -15,8 +14,7 @@ import { ComandaModule } from './comanda/comanda.module';
     RouterModule,
     RouterOutlet,
     GarcomModule,
-    ProdutoModule,
-    ComandaModule
+    ProdutoModule
   ]
 })
 export class PrincipalModule { }

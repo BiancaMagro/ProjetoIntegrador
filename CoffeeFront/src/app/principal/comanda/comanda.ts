@@ -14,6 +14,6 @@ export class Comanda{
         this.cliente = cliente;
         this.mesa = mesa;
         this.ativo = ativo;
-        this.pedidos = pedidos;
+        this.pedidos = [];
     }
 }
