@@ -49,4 +49,9 @@ public class PedidoController {
     public void criarComanda(@RequestBody Comanda comanda){
         new PedidoDAO().addComanda(comanda);
     }
+
+    @GetMapping("/comanda/{id}")
+    public ArrayList<Pedido> getComanda(@PathVariable int id){
+        return new PedidoDAO().getPedidos(id);
+    }
 }

@@ -67,7 +67,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/produtos/all").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
                 .antMatchers(HttpMethod.POST, "/produtos").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
                 .antMatchers(HttpMethod.PUT, "/produtos/{id}").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
-                .antMatchers(HttpMethod.DELETE, "/produtos/{id}").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA");
+                .antMatchers(HttpMethod.DELETE, "/produtos/{id}").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
+                .antMatchers(HttpMethod.GET, "**").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
+                .antMatchers(HttpMethod.POST, "**").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
+                .antMatchers(HttpMethod.PUT, "**").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
+                .antMatchers(HttpMethod.DELETE, "**").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA");
         http.addFilterBefore(this.filtroAutenticacao(), UsernamePasswordAuthenticationFilter.class);
     }
     

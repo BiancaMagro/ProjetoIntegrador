@@ -25,6 +25,10 @@ public class PedidoDAO {
             while (this.resultSet.next()){
                 Pedido pedido = new Pedido();
                 pedido.setCodigo(this.resultSet.getInt("codigo"));
+                pedido.setComanda(this.resultSet.getInt("comanda"));
+                pedido.setProduto(new ProdutoDAO().getById(this.resultSet.getInt("produto")));
+                pedido.setQuantidade(this.resultSet.getInt("quantidade"));
+                pedido.setDataPedido(this.resultSet.getString("data_pedido"));
                 pedido.setStatus(new StatusDAO().getStatus(this.resultSet.getInt("status")));
                 pedidos.add(pedido);
             }
@@ -45,6 +49,10 @@ public class PedidoDAO {
             while (this.resultSet.next()){
                 Pedido pedido = new Pedido();
                 pedido.setCodigo(this.resultSet.getInt("codigo"));
+                pedido.setComanda(this.resultSet.getInt("comanda"));
+                pedido.setProduto(new ProdutoDAO().getById(this.resultSet.getInt("produto")));
+                pedido.setQuantidade(this.resultSet.getInt("quntidade"));
+                pedido.setDataPedido(this.resultSet.getString("data_pedido"));
                 pedido.setStatus(new StatusDAO().getStatus(this.resultSet.getInt("status")));
                 pedidos.add(pedido);
             }
@@ -56,9 +64,15 @@ public class PedidoDAO {
 
     public void setPedido(Pedido pedido) {
         try (Connection connection = new ConectaDB().getConexao()) {
-            this.sql = "INSERT INTO pedido (mesa, descricao, nome, status) VALUES (?, ?, ?, ?)";
+            this.sql = "INSERT INTO pedido (data_pedido, quantidade, produto, comanda, status) VALUES (?, ?, ?, ?, ?)";
             this.preparedStatement = connection.prepareStatement(sql);
-            this.preparedStatement.setInt(4, pedido.getStatus().getCodigo());
+        
+            this.preparedStatement.setString(1, pedido.getDataPedido());
+            this.preparedStatement.setInt(2, pedido.getQuantidade());
+            this.preparedStatement.setInt(3, pedido.getProduto().getId());
+            this.preparedStatement.setInt(4, pedido.getComanda());
+            this.preparedStatement.setInt(5, pedido.getStatus().getCodigo());
+
             this.preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,6 +91,10 @@ public class PedidoDAO {
 
             while (this.resultSet.next()) {
                 pedido.setCodigo(this.resultSet.getInt("codigo"));
+                pedido.setComanda(this.resultSet.getInt("comanda"));
+                pedido.setProduto(new ProdutoDAO().getById(this.resultSet.getInt("produto")));
+                pedido.setQuantidade(this.resultSet.getInt("quntidade"));
+                pedido.setDataPedido(this.resultSet.getString("data_pedido"));
                 pedido.setStatus(new StatusDAO().getStatus(this.resultSet.getInt("status")));
             }
         }catch (SQLException e) {
@@ -90,8 +108,9 @@ public class PedidoDAO {
         try (Connection connection = new ConectaDB().getConexao()) {
             this.sql = "update pedido set descricao = ?, status = ?, nome = ?  where codigo = ?";
             this.preparedStatement = connection.prepareStatement(this.sql);
-            this.preparedStatement.setInt(2, pedido.getStatus().getCodigo());
-            this.preparedStatement.setInt(4, id);
+            
+
+
             this.preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -147,5 +166,31 @@ public class PedidoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Pedido> getPedidos(int idComanda){
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        try(Connection connection = new ConectaDB().getConexao()){
+            this.sql = "select * from pedido where comanda = ?";
+
+            this.preparedStatement = connection.prepareStatement(this.sql);
+            this.preparedStatement.setInt(1, idComanda);
+            this.resultSet = this.preparedStatement.executeQuery();
+
+            while (this.resultSet.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setCodigo(this.resultSet.getInt("codigo"));
+                pedido.setComanda(this.resultSet.getInt("comanda"));
+                pedido.setProduto(new ProdutoDAO().getById(this.resultSet.getInt("produto")));
+                pedido.setQuantidade(this.resultSet.getInt("quantidade"));
+                pedido.setDataPedido(this.resultSet.getString("data_pedido"));
+                pedido.setStatus(new StatusDAO().getStatus(this.resultSet.getInt("status")));
+                pedidos.add(pedido);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pedidos;
     }
 }

@@ -29,11 +29,7 @@ export class GarcomComponent {
       for(let c of this.comandas){
         c.pedidos = []
         this.service.getPedidosComanda(c.codigo!).subscribe((dados: Pedido[])=>{
-          if(dados.length > 0){
-            
-          }else{
-
-          }
+          c.pedidos = dados;
         })
       }
     })
