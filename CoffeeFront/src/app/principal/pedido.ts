@@ -6,7 +6,7 @@ export class Pedido{
     produto?: Produto;
     quantidade?: number;
     status?: Status;
-    data_criada?: string;
+    dataPedido?: string;
     comanda?: number;
 
     constructor(codigo?: number, produto?: Produto, quantidade?: number, status?: Status, data_criada?: string, comanda?: number){
@@ -14,7 +14,7 @@ export class Pedido{
         this.produto = produto;
         this.quantidade = quantidade;
         this.status = status;
-        this.data_criada = data_criada;
+        this.dataPedido = data_criada;
         this.comanda = comanda;
     }
 }

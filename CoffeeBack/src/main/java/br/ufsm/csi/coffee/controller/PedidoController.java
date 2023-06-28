@@ -27,6 +27,7 @@ public class PedidoController {
 
     @PostMapping
     public void criar(@RequestBody Pedido pedido){
+        System.out.println(pedido.getDataPedido());
         new PedidoDAO().setPedido(pedido);
     }
 

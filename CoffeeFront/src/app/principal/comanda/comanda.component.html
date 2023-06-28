@@ -3,13 +3,13 @@
         <div class="col-sm-100 col-md-100 col-lg-10 mx-auto">
             <div class="card border-0 shadow rounded-9 my-9">
                 <div class="card-body p-10 p-sm-9">
-                    <h2 class="card-title text-center mb-5 fw-light fs-5">Mesa {{comanda.mesa}}</h2>
-                    <h4 class="card-title text-center mb-5 fw-light fs-5">{{comanda.cliente}}</h4>
+                    <button type="button" (click)="voltar()" class="btn btn-secondary">VOLTAR</button>
+                    <h2 class="card-title text-center mb-5 fw-light fs-5">Mesa {{comanda.mesa}} Cliente {{comanda.cliente}}</h2>
                     <form>
                         <div class="form-group">
                           <label for="produto">PRODUTO</label>
                           <select name="produto" id="produto" [(ngModel)]="pedido.produto" class="form-control">
-                            <option *ngFor="let p of produtos" [ngValue]="p">{{p.nome}}</option>
+                            <option *ngFor="let p of produtos" [ngValue]="p">{{p.nome}}  R$ {{p.preco | number: '1.2-2'}}</option>
                           </select>
                         </div>
             
@@ -20,8 +20,8 @@
             
                         <br>
                         <div [ngSwitch]="opcao">
-                          <button *ngSwitchCase="'cad'" type="submit" (click)="criar()" class="btn btn-lg btn-primary btn-block" >CADASTRAR</button>
-                          <button *ngSwitchCase="'edit'" type="submit" class="btn btn-lg btn-primary btn-block" >SALVAR</button>
+                          <button *ngSwitchCase="'cad'" type="submit" (click)="criar()" class="btn btn-lg btn-primary btn-block">CADASTRAR</button>
+                          <button *ngSwitchCase="'edit'" type="submit" class="btn btn-lg btn-primary btn-block">SALVAR</button>
                         </div>
                     </form>
                     <table class="table table-stipped">
@@ -30,15 +30,22 @@
                                 <th>PRODUTO</th>
                                 <th>QUANTIDADE</th>
                                 <th>VALOR</th>
+                                <th>STATUS</th>
                                 <th>OPÇÃO</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let p of comanda.pedidos">
+                            <tr *ngFor="let p of pedidos">
                                 <th>{{p.produto?.nome}}</th>
-                                <th>{{p.quantidade}}</th>
-                                <th>{{p.produto!.preco! * p.quantidade!}}</th>
-                                <th><button class="btn btn-success">Ver</button></th>
+                                <th>X {{p.quantidade}}</th>
+                                <th>R$ {{p.produto!.preco! * p.quantidade! | number: '1.2-2'}}</th>
+                                <th>{{p.status?.status}}</th>
+                                <th>
+                                    <button *ngIf="p.status?.codigo == 1" class="btn btn-warning" (click)="editar(p.codigo!)">Excluir</button>
+                                    <h6 *ngIf="p.status?.codigo == 2">Pedido na cozinha</h6>
+                                    <button *ngIf="p.status?.codigo == 3" class="btn btn-danger" (click)="entregar(p.codigo!)">Entregar</button>
+                                    <h6 *ngIf="p.status?.codigo == 4">Entregue</h6>
+                                </th>
                             </tr>
                         </tbody>
                     </table>

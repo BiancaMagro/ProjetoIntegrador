@@ -7,6 +7,7 @@ export class Comanda{
     mesa?: number;
     ativo?: boolean;
     pedidos?: Pedido[];
+    valorTotal?: number;
 
     constructor(codigo?: number, data_criada?: string, cliente?: string, ativo?: boolean, mesa?: number, pedidos?: Pedido[]){
         this.codigo = codigo;

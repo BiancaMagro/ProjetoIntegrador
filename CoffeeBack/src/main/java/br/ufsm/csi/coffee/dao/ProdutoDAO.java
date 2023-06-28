@@ -16,7 +16,7 @@ public class ProdutoDAO {
     public ArrayList<Produto> getProdutos(){
         ArrayList<Produto> produtos = new ArrayList<>();
         try (Connection connection = new ConectaDB().getConexao()){
-            this.sql = "SELECT * FROM produtos where ativo = true";
+            this.sql = "SELECT * FROM produtos where ativo = true order by nome asc";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();

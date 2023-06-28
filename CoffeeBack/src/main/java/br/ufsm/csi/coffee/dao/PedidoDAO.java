@@ -17,8 +17,7 @@ public class PedidoDAO {
     public ArrayList<Pedido> getPedidos(){
         ArrayList<Pedido> pedidos = new ArrayList<>();
         try (Connection connection = new ConectaDB().getConexao()){
-            this.sql = "SELECT * FROM pedido where status != 3";
-
+            this.sql = "SELECT * FROM pedido where status != 3 order by codigo desc";
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();
 
@@ -41,7 +40,7 @@ public class PedidoDAO {
     public ArrayList<Pedido> getCozinha(){
         ArrayList<Pedido> pedidos = new ArrayList<>();
         try (Connection connection = new ConectaDB().getConexao()){
-            this.sql = "SELECT * FROM pedido where status = 1";
+            this.sql = "SELECT * FROM pedido where status = 1 order by codigo desc";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();
@@ -51,7 +50,7 @@ public class PedidoDAO {
                 pedido.setCodigo(this.resultSet.getInt("codigo"));
                 pedido.setComanda(this.resultSet.getInt("comanda"));
                 pedido.setProduto(new ProdutoDAO().getById(this.resultSet.getInt("produto")));
-                pedido.setQuantidade(this.resultSet.getInt("quntidade"));
+                pedido.setQuantidade(this.resultSet.getInt("quantidade"));
                 pedido.setDataPedido(this.resultSet.getString("data_pedido"));
                 pedido.setStatus(new StatusDAO().getStatus(this.resultSet.getInt("status")));
                 pedidos.add(pedido);
@@ -93,7 +92,7 @@ public class PedidoDAO {
                 pedido.setCodigo(this.resultSet.getInt("codigo"));
                 pedido.setComanda(this.resultSet.getInt("comanda"));
                 pedido.setProduto(new ProdutoDAO().getById(this.resultSet.getInt("produto")));
-                pedido.setQuantidade(this.resultSet.getInt("quntidade"));
+                pedido.setQuantidade(this.resultSet.getInt("quantidade"));
                 pedido.setDataPedido(this.resultSet.getString("data_pedido"));
                 pedido.setStatus(new StatusDAO().getStatus(this.resultSet.getInt("status")));
             }
@@ -106,11 +105,11 @@ public class PedidoDAO {
     public void editar(Pedido pedido, int id) {
 
         try (Connection connection = new ConectaDB().getConexao()) {
-            this.sql = "update pedido set descricao = ?, status = ?, nome = ?  where codigo = ?";
+            this.sql = "update pedido set quantidade = ?, status = ? where codigo = ?";
             this.preparedStatement = connection.prepareStatement(this.sql);
-            
-
-
+            this.preparedStatement.setInt(1, pedido.getQuantidade());
+            this.preparedStatement.setInt(2, pedido.getStatus().getCodigo());
+            this.preparedStatement.setInt(3, id);
             this.preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -133,7 +132,7 @@ public class PedidoDAO {
     public ArrayList<Comanda> getComandas(){
         ArrayList<Comanda> comandas = new ArrayList<>();
         try (Connection connection = new ConectaDB().getConexao()){
-            this.sql = "SELECT * FROM comanda";
+            this.sql = "SELECT * FROM comanda order by codigo desc";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();
@@ -171,7 +170,7 @@ public class PedidoDAO {
     public ArrayList<Pedido> getPedidos(int idComanda){
         ArrayList<Pedido> pedidos = new ArrayList<>();
         try(Connection connection = new ConectaDB().getConexao()){
-            this.sql = "select * from pedido where comanda = ?";
+            this.sql = "select * from pedido where comanda = ? order by codigo desc";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.preparedStatement.setInt(1, idComanda);

@@ -30,6 +30,10 @@ export class GarcomComponent {
         c.pedidos = []
         this.service.getPedidosComanda(c.codigo!).subscribe((dados: Pedido[])=>{
           c.pedidos = dados;
+          c.valorTotal = 0
+          for(let p of dados){
+            c.valorTotal += p.produto?.preco! * p.quantidade!
+          }
         })
       }
     })
@@ -49,7 +53,7 @@ export class GarcomComponent {
     })
   }
   criar(){
-    this.pedido.data_criada = new Date().toISOString().split('T')[0];
+    this.pedido.dataPedido = new Date().toISOString().split('T')[0];
     this.pedido.status = new Status(1);
     this.service.criar(this.pedido).subscribe(()=>{
       this.pedido = new Pedido();

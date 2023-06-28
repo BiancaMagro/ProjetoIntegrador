@@ -37,7 +37,7 @@
             <tr *ngFor="let p of comandas;">
               <th>{{p.mesa}}</th>
               <th>{{p.cliente}}</th>
-              <th *ngIf="p.pedidos!.length > 0"><p *ngFor="let c of p.pedidos"> {{c.produto?.nome}} X {{c.quantidade}} </p></th>
+              <th *ngIf="p.pedidos!.length > 0">R$ {{p.valorTotal | number: '1.2-2'}}</th>
               <th *ngIf="p.pedidos!.length == 0">Nenhum pedido relizado</th>
               <th><button class="btn btn-success" (click)="ver(p)">Ver</button></th>
             </tr>
