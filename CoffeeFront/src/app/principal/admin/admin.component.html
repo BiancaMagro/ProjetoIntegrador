@@ -88,12 +88,21 @@
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">NOME</th>
-                  <th scope="col">DESCRICAO</th>
+                  <th scope="col">CLIENTE</th>
+                  <th scope="col">PEDIDO</th>
+                  <th scope="col">QUANTIDADE</th>
+                  <th scope="col">VALOR</th>
+                  <th scope="col">DATA</th>
                 </tr>
               </thead>
               <tbody>
-                
+                <tr *ngFor="let v of logview">
+                  <th>{{v.cliente}}</th>
+                  <th>{{v.produto}}</th>
+                  <th>{{v.quantidade}}</th>
+                  <th>{{v.valor}}</th>
+                  <th>{{v.data}}</th>
+                </tr>
               </tbody>
             </table>
           </div>

@@ -96,4 +96,11 @@ export class GarcomComponent {
     localStorage.setItem('comanda', JSON.stringify(comanda));
     this.rota.navigate(['inicio/comanda']);
   }
+  fechaComanda(id:number){
+    if(confirm("tem certeza que desja fechar esta comanda?!")){
+      this.service.fechaComanda(id).subscribe(()=>{
+        this.listar();
+      })
+    }
+  }
 }

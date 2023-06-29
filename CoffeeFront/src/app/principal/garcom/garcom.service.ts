@@ -44,4 +44,7 @@ export class PrincipalService {
   getPedidosComanda(id: number): Observable<Pedido[]>{
     return this.http.get<Pedido[]>(this.url+"/comanda/"+id, this.options);
   }
+  fechaComanda(id: number): Observable<any>{
+    return this.http.delete<any>(this.url+"/comanda/"+id, this.options);
+  }
 }

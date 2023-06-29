@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/login/Usuario';
 import { AdminService } from './admin.service';
 import {Pedido} from "../pedido";
 import { Router } from '@angular/router';
+import { LogView } from './logview';
 
 @Component({
   selector: 'app-admin',
@@ -34,6 +35,7 @@ export class AdminComponent {
     this.service.listLog().subscribe((peds: Pedido[])=>{
       this.pedidos = peds;
     })
+    this.getLog();
   }
   criar(){
     if(this.senha != this.usuario.senha){
@@ -83,5 +85,11 @@ export class AdminComponent {
   }
   canc(){
     this.usuario = new Usuario();
+  }
+  logview: LogView[] = []
+  getLog(){
+    this.service.getLog().subscribe((dados: LogView[])=>{
+      this.logview = dados;
+    })
   }
 }

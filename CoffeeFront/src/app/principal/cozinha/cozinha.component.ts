@@ -25,16 +25,18 @@ export class CozinhaComponent {
   }
   continuar(id: number){
     this.service.pesquisar(id).subscribe((dado: Pedido)=>{
-      this.pedido = dado;
-      this.id = dado.codigo!;
-      this.tela = true;
+      dado.status = new Status(2)
+      this.service.editar(dado, id).subscribe((dado: Pedido)=>{
+        this.listar()
+      })
     })
   }
-  terminar(){
-    this.pedido.status = new Status(2)
-    this.service.editar(this.pedido, this.id).subscribe(()=>{
-      this.listar();
-      this.tela = false;
+  terminar(id: number){
+    this.service.pesquisar(id).subscribe((dado: Pedido)=>{
+      dado.status = new Status(3)
+      this.service.editar(dado, id).subscribe((dado: Pedido)=>{
+        this.listar()
+      })
     })
   }
 }

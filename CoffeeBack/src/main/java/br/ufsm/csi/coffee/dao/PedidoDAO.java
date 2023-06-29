@@ -1,6 +1,7 @@
 package br.ufsm.csi.coffee.dao;
 
 import br.ufsm.csi.coffee.model.Comanda;
+import br.ufsm.csi.coffee.model.LogView;
 import br.ufsm.csi.coffee.model.Pedido;
 
 import java.sql.Connection;
@@ -40,7 +41,7 @@ public class PedidoDAO {
     public ArrayList<Pedido> getCozinha(){
         ArrayList<Pedido> pedidos = new ArrayList<>();
         try (Connection connection = new ConectaDB().getConexao()){
-            this.sql = "SELECT * FROM pedido where status = 1 order by codigo desc";
+            this.sql = "SELECT * FROM pedido where status in (1,2) order by codigo asc";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();
@@ -191,5 +192,41 @@ public class PedidoDAO {
             e.printStackTrace();
         }
         return pedidos;
+    }
+
+    public ArrayList<LogView> getLogView(){
+        ArrayList<LogView> logViews = new ArrayList<>();
+        try(Connection connection = new ConectaDB().getConexao()){
+            this.sql = "select c.cliente as cliente, p.nome as produto, ped.data_pedido as data, ped.quantidade as quantidade, ped.quantidade * p.preco as total from pedido ped inner join produtos p on ped.produto = p.codigo inner join comanda c on ped.comanda = c.codigo where ped.status = 4 order by ped.codigo desc";
+
+            this.preparedStatement = connection.prepareStatement(this.sql);
+            this.resultSet = this.preparedStatement.executeQuery();
+
+            while (this.resultSet.next()) {
+                LogView logView = new LogView();
+                logView.setCliente(this.resultSet.getString("cliente"));
+                logView.setProduto(this.resultSet.getString("produto"));
+                logView.setData(this.resultSet.getString("data"));
+                logView.setQuantidade(this.resultSet.getInt("quantidade"));
+                logView.setValor(this.resultSet.getDouble("total"));
+                logViews.add(logView);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return logViews;
+    }
+
+    public void fechaComanda(int codigo){
+        try (Connection connection = new ConectaDB().getConexao()) {
+            this.sql = "update comanda set ativo = false where codigo = ?";
+            this.preparedStatement = connection.prepareStatement(this.sql);
+            this.preparedStatement.setInt(1, codigo);
+            this.preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

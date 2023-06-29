@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Funcao } from 'src/app/login/funcao';
 import { Usuario } from 'src/app/login/Usuario';
 import {Pedido} from "../pedido";
+import { LogView } from './logview';
 
 
 @Injectable({
@@ -35,5 +36,8 @@ export class AdminService {
   }
   listLog(): Observable<Pedido[]>{
     return this.http.get<Pedido[]>(this.url+"/prontos");
+  }
+  getLog(): Observable<LogView[]>{
+    return this.http.get<LogView[]>("http://localhost:8080/pedidos/log", this.options);
   }
 }

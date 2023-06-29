@@ -39,7 +39,10 @@
               <th>{{p.cliente}}</th>
               <th *ngIf="p.pedidos!.length > 0">R$ {{p.valorTotal | number: '1.2-2'}}</th>
               <th *ngIf="p.pedidos!.length == 0">Nenhum pedido relizado</th>
-              <th><button class="btn btn-success" (click)="ver(p)">Ver</button></th>
+              <th style="display: flex;justify-content: space-around">
+                <button class="btn btn-warning" (click)="ver(p)">Ver comanda</button>
+                <br>
+                <button class="btn btn-danger" (click)="fechaComanda(p.codigo!)">Fechar comadna</button></th>
             </tr>
             </tbody>
           </table>

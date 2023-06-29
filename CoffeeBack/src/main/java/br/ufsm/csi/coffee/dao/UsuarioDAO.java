@@ -17,7 +17,7 @@ public class UsuarioDAO {
     public ArrayList<Usuario> getUsers(){
         ArrayList<Usuario> usuarios = new ArrayList<>();
         try (Connection connection = new ConectaDB().getConexao()){
-            this.sql = "SELECT * FROM usuarios";
+            this.sql = "SELECT * FROM usuarios order by nome asc";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();
