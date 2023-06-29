@@ -1,7 +1,10 @@
 package br.ufsm.csi.coffee.controller;
 
+import br.ufsm.csi.coffee.dao.PedidoDAO;
 import br.ufsm.csi.coffee.dao.UsuarioDAO;
+import br.ufsm.csi.coffee.model.LogView;
 import br.ufsm.csi.coffee.model.Usuario;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,5 +37,8 @@ public class UsuarioController {
         new UsuarioDAO().excluir(login);
     }
 
-    
+    @GetMapping("/logview")
+    public ArrayList<LogView> getLogView(){
+        return new PedidoDAO().getLogView();
+    }
 }

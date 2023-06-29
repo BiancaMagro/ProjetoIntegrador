@@ -16,6 +16,7 @@ export class AdminComponent {
     this.listar();
   }
   usuario: Usuario = new Usuario();
+  logview: LogView[] = [];
   usuarios: Usuario[] = [];
   funcoes: Funcao[] = [];
   login? = '';
@@ -32,10 +33,13 @@ export class AdminComponent {
         this.funcoes = funcs;
       })
     })
-    this.service.listLog().subscribe((peds: Pedido[])=>{
-      this.pedidos = peds;
+    this.service.getLog().subscribe((dados: LogView[])=>{
+      this.logview = dados;
+      for(let log of this.logview){
+        let date = new Date(log.data!);
+        log.data = new Date(date.getTime() - date.getTimezoneOffset() * - 60000).toLocaleString().split(',')[0];
+      }
     })
-    this.getLog();
   }
   criar(){
     if(this.senha != this.usuario.senha){
@@ -85,11 +89,5 @@ export class AdminComponent {
   }
   canc(){
     this.usuario = new Usuario();
-  }
-  logview: LogView[] = []
-  getLog(){
-    this.service.getLog().subscribe((dados: LogView[])=>{
-      this.logview = dados;
-    })
   }
 }

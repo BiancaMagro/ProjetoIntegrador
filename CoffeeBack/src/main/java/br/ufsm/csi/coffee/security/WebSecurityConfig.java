@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/usuarios").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/usuarios/{login}").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/usuarios/{login}").hasAnyAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/usuarios/prontos").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/usuarios/logview").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/produtos").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
                 .antMatchers(HttpMethod.GET, "/produtos/{id}").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")
                 .antMatchers(HttpMethod.GET, "/produtos/all").hasAnyAuthority("ADMIN", "GARCOM", "COZINHA")

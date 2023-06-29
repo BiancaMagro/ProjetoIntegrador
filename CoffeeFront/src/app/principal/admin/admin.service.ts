@@ -34,10 +34,7 @@ export class AdminService {
   listFuncao(): Observable<Funcao[]>{
     return this.http.get<Funcao[]>(this.funcao)
   }
-  listLog(): Observable<Pedido[]>{
-    return this.http.get<Pedido[]>(this.url+"/prontos");
-  }
   getLog(): Observable<LogView[]>{
-    return this.http.get<LogView[]>("http://localhost:8080/pedidos/log", this.options);
+    return this.http.get<LogView[]>(this.url+"/logview", this.options);
   }
 }

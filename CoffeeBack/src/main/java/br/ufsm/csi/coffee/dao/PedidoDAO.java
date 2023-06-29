@@ -133,7 +133,7 @@ public class PedidoDAO {
     public ArrayList<Comanda> getComandas(){
         ArrayList<Comanda> comandas = new ArrayList<>();
         try (Connection connection = new ConectaDB().getConexao()){
-            this.sql = "SELECT * FROM comanda order by codigo desc";
+            this.sql = "SELECT * FROM comanda where ativo = true order by codigo desc";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();
@@ -198,7 +198,7 @@ public class PedidoDAO {
         ArrayList<LogView> logViews = new ArrayList<>();
         try(Connection connection = new ConectaDB().getConexao()){
             this.sql = "select c.cliente as cliente, p.nome as produto, ped.data_pedido as data, ped.quantidade as quantidade, ped.quantidade * p.preco as total from pedido ped inner join produtos p on ped.produto = p.codigo inner join comanda c on ped.comanda = c.codigo where ped.status = 4 order by ped.codigo desc";
-
+            System.out.println("LOG DAO");
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.resultSet = this.preparedStatement.executeQuery();
 
